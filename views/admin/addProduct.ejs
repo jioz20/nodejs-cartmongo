@@ -1,0 +1,40 @@
+<%- include('../includes/header.ejs') %>
+
+<body>
+  <%- include('../includes/headbody.ejs') %>
+
+
+  <!-- Main jumbotron for a primary marketing message or call to action -->
+  <div class="jumbotron">
+    <div class="container">
+      <h1 class="display-3">Admin</h1>
+      <form action="/admin/addproduct" method="POST" enctype="multipart/form-data">
+        <% if(error_message !== null){%>
+          <div class="alert alert-danger text-center"><%=error_message%></div>
+      <% }%>
+        <input type="hidden" value="<%- csrfToken%>" name="_csrf">
+        <p>
+          Name: <input type="text" name="title" 
+          class="<%- validationErrors.find(err => err.param === 'title') ? 'border border-danger' : '' %>" value="<%- oldInput.title; %>">
+        </p>
+        <p>
+          Price: <input type="number" name="price"
+          class="<%- validationErrors.find(err => err.param === 'price') ? 'border border-danger' : '' %>" value="<%- oldInput.price; %>">
+        </p>
+        <p>
+          Images: <input type="file" name="imageUrl">
+        </p>
+        <p>
+          Description: <input type="text" name="description" minlength="4"
+          class="<%- validationErrors.find(err => err.param === 'description') ? 'border border-danger' : '' %>" value="<%- oldInput.description; %>">
+        </p>
+
+        <button class="btn btn-outline-success" type="submit">Thêm</button>
+      </form>
+    </div>
+  </div>
+
+  <%- include('../includes/footer.ejs');%>
+</body>
+
+</html>

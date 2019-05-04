@@ -1,0 +1,56 @@
+<%- include('../includes/header.ejs') %>
+<body>
+        <%- include('../includes/headbody.ejs') %>
+
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="jumbotron">
+        <div class="container">
+            <div class="row">
+                <form action="/signup" method="POST">
+                    <% if(error_message !=''){%>
+                        <div class="alert alert-danger text-center"><%=error_message%></div>
+                    <% }%>
+
+                    <div class="form-group col-md-8">
+                        <label for="abc">Name </label>
+                        <input type="text" name="name" title="Please enter your name" id="abc" value="<%- oldInput.name; %>">
+                    </div>
+                    <div class="form-group col-md-8">
+                        <label for="abc">Email </label>
+                        <input  
+                                class="<%- validationErrors.find(err => err.param === 'email') ? 'border border-danger' : '' %>"
+                                type="email" 
+                                name="email" 
+                                title="Please enter your email" 
+                                id="abc"  
+                                value="<%- oldInput.email; %>">
+                    </div>
+                    <div class="form-group col-md-8">
+                        <label for="">Password </label>
+                        <input type="password" 
+                                name="password" 
+                                title="Please enter your password"
+                                class="<%- validationErrors.find(err => err.param === 'password') ? 'border border-danger' : '' %>" >
+                    </div>
+                    <div class="form-group col-md-8">
+                        <label for="">Confirm Password </label>
+                        <input type="password" 
+                        name="confirmpassword" 
+                        title="Please enter your confirm password" 
+                        class="<%- validationErrors.find(err => err.param === 'confirmpassword') ? 'border border-danger' : '' %>"
+                        >
+                    </div>
+                    <input type="hidden" value="<%- csrfToken%>" name="_csrf">
+                    <div class="form-group col-md-2">                          
+                            <button type="submit" class="btn btn-outline-danger">Done</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <%- include('../includes/footer.ejs');%>
+</body>
+
+</html>

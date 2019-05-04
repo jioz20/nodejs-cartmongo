@@ -1,0 +1,48 @@
+<%- include('../includes/header.ejs') %>
+
+<body>
+  <%- include('../includes/headbody.ejs') %>
+
+
+  <!-- Main jumbotron for a primary marketing message or call to action -->
+  <div class="jumbotron">
+    <div class="container">
+      <h1 class="display-3">Edit Product</h1>
+      <form action="/admin/editproduct" method="POST" enctype="multipart/form-data">
+        <% if(error_message !== null){%>
+          <div class="alert alert-danger text-center"><%=error_message%></div>
+      <% }%>
+        <input type="hidden" value="<%- csrfToken%>" name="_csrf">
+        <input type="hidden" name="id" value="<%- product.id; %>" readonly>
+        <p>
+          Name: <input 
+                    type="text" 
+                    name="title" 
+                    value="<%- product.title; %>"
+                    class="<%- validationErrors.find(err => err.param === 'title') ? 'border border-danger' : '' %>">
+        </p>
+        <p>
+          Price: <input type="number" name="price" value="<%- product.price; %>" 
+          class="<%- validationErrors.find(err => err.param === 'price') ? 'border border-danger' : '' %>">
+        </p>
+        <p>
+          <img src="/images/<%- product.imageUrl;%>" alt="" style="height: 150px;">
+        </p>
+        <p>
+          Images: <input type="file" name="imageUrl">
+        </p>
+        <p>
+          Description: <input type="text" name="description" value="<%- product.description; %>"
+          class="<%- validationErrors.find(err => err.param === 'description') ? 'border border-danger' : '' %>">
+        </p>
+
+        <button class="btn btn-outline-success" type="submit">Edit</button>
+        <a href="/">Back</a>
+      </form>
+    </div>
+  </div>
+
+  <%- include('../includes/footer.ejs');%>
+</body>
+
+</html>

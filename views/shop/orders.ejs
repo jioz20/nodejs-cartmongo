@@ -1,0 +1,55 @@
+<%- include('../includes/header.ejs') %>
+
+<body>
+  <%- include('../includes/headbody.ejs') %>
+
+
+  <div style="margin-top: 100px;">
+    <div class="container">
+
+      <%
+            if(orders.length <= 0)
+            {
+       %>
+                <span class="alert alert-danger">No problem !</span>
+       <%
+            }
+            else
+            {
+       %>
+                <ul class="list-group">
+                 
+                  <% 
+                     orders.forEach(order => 
+                        {
+                    %>
+                    <li class="list-group-item active">
+                            <h2>Order - #<%- order.id ;%></h2>
+                            <ul class="list-group">
+                            <%
+                              order.products.forEach(p =>{
+                            %>
+                              <li class="list-group-item text-danger">
+                                <%- p.product.title %> <span class="text-success"> (<%- p.quantity; %>)</span></li>
+                            <%                                           
+                              })
+                            %>
+                            </ul>
+                             
+                    </li>
+                    <a href="/orders/<%= order._id; %>" class="btn btn-outline-success">Invoices</a>
+                    <%
+                        })
+                    %>
+                </ul>
+
+
+       <%
+            }
+       %>
+    </div>
+  </div>
+</body>
+<%- include('../includes/footer.ejs');%>
+
+</html>

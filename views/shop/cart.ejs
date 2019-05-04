@@ -1,0 +1,73 @@
+<%- include('../includes/header.ejs') %>
+
+<body>
+  <%- include('../includes/headbody.ejs') %>
+
+
+  <div style="margin-top: 100px;">
+    <div class="container">
+
+      <%
+            if(products.length > 0)
+            {
+        %>
+      <table class="table text-center">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Title</th>
+            <th scope="col">Price</th>
+            <th scope="col">Quanity</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <%
+                products.forEach((product, index)=>{
+        %>
+          <tr>
+            <th scope="row"><%- index + 1;%></th>
+            <td><%- product.productId.title;%></td>
+            <td><%- product.productId.price;%>$</td>
+            <td><%- product.quantity;%></td>
+            <td>
+              <!-- <div class="form-group">
+                  <a href="/admin/editproduct/<%- product.id; %>" class="btn btn-outline-primary" style="width: 80px;">Update</a>
+                </div> -->
+              <div class="form-group">
+                <a href="/getCartDeleteProduct/<%- product.productId.id; %>" class="btn btn-outline-danger"
+                  onclick="return confirm('Are you sure?')" style="width: 80px;">Delete</a>
+
+              </div>
+            </td>
+          </tr>       
+          <%
+          })
+        %>
+        <!-- <div class="form-group">
+          <form action="/create-order" method="POST">
+            <input type="hidden" value="<%- csrfToken%>" name="_csrf">
+            <button class="btn btn-success" type="submit">Order Now!</button>
+          </form>
+        </div> -->
+
+        <a href="/checkout"  class="btn btn-primary">Checkout</a>
+        </tbody>
+      </table>
+      <%
+          }
+          else
+          {
+        %>
+      <span class="alert alert-danger">No product in cart !</span>
+      <%
+          }
+        %>
+
+
+    </div>
+  </div>
+</body>
+<%- include('../includes/footer.ejs');%>
+
+</html>

@@ -1,0 +1,30 @@
+<%- include('../includes/header.ejs') %>
+<body>
+        <%- include('../includes/headbody.ejs') %>
+
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="jumbotron">
+        <div class="container">
+            <div class="row">
+                <form action="/reset" method="POST">
+                    <% if(error_message !=''){%>
+                        <div class="alert alert-danger text-center"><%=error_message%></div>
+                    <% }%>
+                    <div class="form-group col-md-5">
+                        <label for="abc">Email </label>
+                        <input type="email" name="email" title="Please enter your email" id="abc">
+                    </div>
+                    <input type="hidden" value="<%- csrfToken%>" name="_csrf">
+                    <div class="form-group col-md-2">                          
+                            <button type="submit" class="btn btn-outline-danger">Reset Password</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <%- include('../includes/footer.ejs');%>
+</body>
+
+</html>

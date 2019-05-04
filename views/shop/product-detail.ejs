@@ -1,0 +1,19 @@
+
+<h1>Title: <%-product.title;%></h1>
+
+<h2>Price: <%-product.price;%></h2>
+<%
+if(isAuthenticated)
+{
+%>
+    <form action="/postcard" method="POST">
+        <input type="hidden" value="<%- csrfToken%>" name="_csrf">
+        <input type="hidden" name="id" value="<%- product.id%>">
+        <button class="btn btn-outline-success" type="submit">Add to card</button> &nbsp;
+    </form>
+<%
+}
+%>
+<p>
+    <a href="/" >Back go home</a>
+</p>

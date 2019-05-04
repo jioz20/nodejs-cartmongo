@@ -1,0 +1,116 @@
+<%- include('../includes/header.ejs') %>
+<body>
+        <%- include('../includes/headbody.ejs') %>
+        <style>
+            .active{
+                background: #0056b3;
+                color: #fff;
+            }
+        </style>
+
+    <%
+        if(prods.length > 0)
+        {
+    %>
+    <div class="jumbotron">
+        <div class="container text-center">
+            <h1 class="display-3">Products</h1>
+           
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+
+    
+        <%
+            prods.forEach((product)=>{
+        %>
+            <div class="col-md-4 text-center">
+                <h2><%- product.title; %></h2>
+                <img src="/images/<%- product.imageUrl;%>" class="img-fluid" alt="Responsive image" style="width: 200px;">
+                <p></p>
+                <h4 > Price: <span class="text-danger"><%- product.price; %>$</span></h4>
+
+                <div class="text-center">
+                    <%
+                        if(isAuthenticated)
+                        {
+                    %>
+                        <form action="/postcard" method="POST">
+                            <input type="hidden" value="<%- csrfToken%>" name="_csrf">
+                            <input type="hidden" name="id" value="<%- product.id%>">
+                            <button class="btn btn-outline-success" type="submit">Add to card</button> &nbsp;
+                        </form>
+                    <%
+                        }
+                    %>
+                    <a href="/product-detail/<%- product.id;%>" class="btn btn-outline-warning">Detail</a>
+                </div>
+            </div>
+        <%
+            });
+        %>
+
+        </div>
+    </div>
+    <br/>
+    &nbsp;
+
+    <div class="container ">
+        <nav aria-label="Page navigation example ">
+            <ul class="pagination" style="-ms-flex-pack: center !important; justify-content: center !important;">
+
+        <%
+            if(activePage != 1)
+            { 
+        %>
+            <li class="page-item"><a class="page-link" href="?page=1">First</a></li>
+        <%
+            }
+            if(activePage != 1 && previousPage !== 0)
+            {
+        %>
+              <li class="page-item"><a class="page-link" href="?page=<%-previousPage; %>">Previous</a></li>
+        <%
+            }
+            for(let i = 1; i <= totalPage; i ++ )
+            {
+        %>
+              <li class="page-item" ><a class="page-link  <%- (i === activePage) ? 'active' : '' %>" href="?page=<%- i%>" ><%- i %></a></li>
+        <%
+            }
+            if(hasNextPage && hasNextPage !== lastPage)
+            {
+        %>
+            <li class="page-item"><a class="page-link" href="?page=<%- nextPage; %>">Next</a></li>
+        <%
+            }
+            if(lastPage !== activePage && hasNextPage !== lastPage)
+            {
+        %>
+            <li class="page-item"><a class="page-link" href="?page=<%- lastPage; %>">Last</a></li>
+        <%
+            }
+        %>
+            </ul>
+          </nav>
+    </div>
+    
+    
+    <%
+        }
+        else
+        {
+    %>
+            <div class="col-md-12 text-center">
+                <div class="alert alert-danger">No Product</div>
+            </div>
+            
+    <%
+        }
+    %>
+    <%- include('../includes/footer.ejs');%>
+</body>
+
+</html>
